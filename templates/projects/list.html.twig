@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Mes Projets{% endblock %}
+
+{% block content %}
+    <h1>Mes Projets</h1>
+
+    {# Filtre par langage #}
+    <div class="filters">
+        <a href="index.php" class="{% if currentLanguage is not defined %}active{% endif %}">Tous</a>
+        {% for language in languages %}
+            <a href="index.php?route=filter_projects&language={{ language }}"
+               class="{% if currentLanguage is defined and currentLanguage == language %}active{% endif %}">
+                {{ language }}
+            </a>
+        {% endfor %}
+    </div>
+
+    {# Liste des projets #}
+    <div class="projects-grid">
+        {% for project in projects %}
+            <div class="project-card">
+                <h2>{{ project.getName() }}</h2>
+                <span class="language-tag">{{ project.getLanguage() }}</span>
+                <p>{{ project.getDescription()|slice(0, 100) }}{% if project.getDescription()|length > 100 %}...{% endif %}</p>
+                <a href="index.php?route=show_project&id={{ project.getId() }}">Voir le détail</a>
+            </div>
+        {% else %}
+            <p>Aucun projet pour le moment.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

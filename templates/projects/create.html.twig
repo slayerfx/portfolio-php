@@ -1,0 +1,28 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Ajouter un projet{% endblock %}
+
+{% block content %}
+    <h1>Ajouter un projet</h1>
+
+    <form action="index.php?route=check_create_project" method="POST">
+        <label for="name">Nom du projet *</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="description">Description *</label>
+        <textarea id="description" name="description" rows="5" required></textarea>
+
+        <label for="language">Langage *</label>
+        <input type="text" id="language" name="language" required>
+
+        <label for="source_link">Lien vers le projet</label>
+        <input type="url" id="source_link" name="source_link">
+
+        <label for="github_link">Lien GitHub</label>
+        <input type="url" id="github_link" name="github_link">
+
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <a href="index.php">Retour à la liste</a>
+{% endblock %}

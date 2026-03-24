@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ project.getName() }}{% endblock %}
+
+{% block content %}
+    <h1>{{ project.getName() }}</h1>
+    <span class="language-tag">{{ project.getLanguage() }}</span>
+
+    <div class="project-detail">
+        <p>{{ project.getDescription() }}</p>
+
+        <div class="project-links">
+            {% if project.getSourceLink() %}
+                <a href="{{ project.getSourceLink() }}" target="_blank">Voir le projet</a>
+            {% endif %}
+            {% if project.getGithubLink() %}
+                <a href="{{ project.getGithubLink() }}" target="_blank">Dépôt GitHub</a>
+            {% endif %}
+        </div>
+
+        {% if project.getCreatedAt() %}
+            <p class="date">Ajouté le {{ project.getCreatedAt()|date("d/m/Y") }}</p>
+        {% endif %}
+    </div>
+
+    <div class="project-actions">
+        <a href="index.php?route=update_project&id={{ project.getId() }}">Modifier</a>
+        <a href="index.php?route=delete_project&id={{ project.getId() }}"
+           onclick="return confirm('Supprimer ce projet ?')">Supprimer</a>
+        <a href="index.php">Retour à la liste</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Modifier {{ project.getName() }}{% endblock %}
+
+{% block content %}
+    <h1>Modifier le projet</h1>
+
+    <form action="index.php?route=check_update_project" method="POST">
+        <input type="hidden" name="id" value="{{ project.getId() }}">
+
+        <label for="name">Nom du projet *</label>
+        <input type="text" id="name" name="name" value="{{ project.getName() }}" required>
+
+        <label for="description">Description *</label>
+        <textarea id="description" name="description" rows="5" required>{{ project.getDescription() }}</textarea>
+
+        <label for="language">Langage *</label>
+        <input type="text" id="language" name="language" value="{{ project.getLanguage() }}" required>
+
+        <label for="source_link">Lien vers le projet</label>
+        <input type="url" id="source_link" name="source_link" value="{{ project.getSourceLink() }}">
+
+        <label for="github_link">Lien GitHub</label>
+        <input type="url" id="github_link" name="github_link" value="{{ project.getGithubLink() }}">
+
+        <button type="submit">Modifier</button>
+    </form>
+
+    <a href="index.php?route=show_project&id={{ project.getId() }}">Annuler</a>
+{% endblock %}

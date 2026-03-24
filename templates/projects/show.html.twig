@@ -24,6 +24,11 @@
     </div>
 
     <div class="project-actions">
+        {% if project.getId() in favorites %}
+            <a href="index.php?route=remove_favorite&id={{ project.getId() }}" style="background-color: #f39c12;">Retirer des favoris &#9733;</a>
+        {% else %}
+            <a href="index.php?route=add_favorite&id={{ project.getId() }}" style="background-color: #f39c12;">Ajouter aux favoris &#9734;</a>
+        {% endif %}
         <a href="index.php?route=update_project&id={{ project.getId() }}">Modifier</a>
         <a href="index.php?route=delete_project&id={{ project.getId() }}"
            onclick="return confirm('Supprimer ce projet ?')">Supprimer</a>

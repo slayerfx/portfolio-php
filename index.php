@@ -1,5 +1,8 @@
 <?php
 
+// Démarrage de la session pour les favoris
+session_start();
+
 // Point d'entrée de l'application
 require "vendor/autoload.php";
 

@@ -11,7 +11,9 @@ abstract class AbstractController {
     }
 
     // Affiche un template Twig avec les données passées en paramètre
+    // On passe aussi les favoris de la session pour les rendre disponibles dans tous les templates
     protected function render(string $template, array $data = []): void {
+        $data["favorites"] = $_SESSION["favorites"] ?? [];
         echo $this->twig->render($template . ".html.twig", $data);
     }
 

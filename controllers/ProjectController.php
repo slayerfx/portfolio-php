@@ -102,4 +102,43 @@ class ProjectController extends AbstractController {
             "currentLanguage" => $language
         ]);
     }
+
+    // Ajoute un projet aux favoris (session)
+    public function addFavorite(int $id): void {
+        if (!isset($_SESSION["favorites"])) {
+            $_SESSION["favorites"] = [];
+        }
+        if (!in_array($id, $_SESSION["favorites"])) {
+            $_SESSION["favorites"][] = $id;
+        }
+        // Redirige vers la page d'où on vient
+        $referer = $_SERVER["HTTP_REFERER"] ?? "index.php";
+        $this->redirect($referer);
+    }
+
+    // Retire un projet des favoris (session)
+    public function removeFavorite(int $id): void {
+        if (isset($_SESSION["favorites"])) {
+            $_SESSION["favorites"] = array_values(
+                array_filter($_SESSION["favorites"], fn($favId) => $favId !== $id)
+            );
+        }
+        $referer = $_SERVER["HTTP_REFERER"] ?? "index.php";
+        $this->redirect($referer);
+    }
+
+    // Affiche la liste des projets favoris
+    public function listFavorites(): void {
+        $favorites = $_SESSION["favorites"] ?? [];
+        $projects = [];
+        foreach ($favorites as $id) {
+            $project = $this->pm->findById($id);
+            if ($project) {
+                $projects[] = $project;
+            }
+        }
+        $this->render("projects/favorites", [
+            "projects" => $projects
+        ]);
+    }
 }

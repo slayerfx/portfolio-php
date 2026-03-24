@@ -1,0 +1,23 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Mes Favoris{% endblock %}
+
+{% block content %}
+    <h1>Mes Favoris</h1>
+
+    <div class="projects-grid">
+        {% for project in projects %}
+            <div class="project-card">
+                <h2>{{ project.getName() }}</h2>
+                <span class="language-tag">{{ project.getLanguage() }}</span>
+                <p>{{ project.getDescription()|slice(0, 100) }}{% if project.getDescription()|length > 100 %}...{% endif %}</p>
+                <div class="card-actions">
+                    <a href="index.php?route=show_project&id={{ project.getId() }}">Voir le détail</a>
+                    <a href="index.php?route=remove_favorite&id={{ project.getId() }}" class="fav-btn fav-active" title="Retirer des favoris">&#9733;</a>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucun projet en favoris pour le moment.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

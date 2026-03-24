@@ -23,6 +23,12 @@ class Router {
             $ctrl->delete((int)$_GET["id"]);
         } elseif ($route === "filter_projects" && isset($_GET["language"])) {
             $ctrl->filter($_GET["language"]);
+        } elseif ($route === "add_favorite" && isset($_GET["id"])) {
+            $ctrl->addFavorite((int)$_GET["id"]);
+        } elseif ($route === "remove_favorite" && isset($_GET["id"])) {
+            $ctrl->removeFavorite((int)$_GET["id"]);
+        } elseif ($route === "list_favorites") {
+            $ctrl->listFavorites();
         } else {
             $ctrl->list();
         }
